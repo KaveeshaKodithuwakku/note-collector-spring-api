@@ -18,19 +18,19 @@ public class NoteController {
 
 
     /*save notes*/
-    @PostMapping
-    public Note saveStudent(@RequestBody Note note){
+    @PostMapping("/save-notes")
+    public Note saveNote(@RequestBody Note note){
         return noteDAO.save(note);
     }
 
     /*get all notes*/
-    @GetMapping("/")
+    @GetMapping("/get-all")
     public List<Note> getAllNotes(){
         return noteDAO.findAll();
     }
 
     /*get notes by noteId*/
-    @GetMapping("/{id}")
+    @GetMapping("/get-note/{id}")
     public ResponseEntity<Note> getNoteById(@PathVariable(value="id") Integer nteId){
 
         Note nte = noteDAO.findOne(nteId);
@@ -42,11 +42,11 @@ public class NoteController {
 
     }
 
-    /*update a student by stdid*/
-    @PutMapping("/{id}")
-    public ResponseEntity<Note> updateNote(@PathVariable(value="id") Integer stdid,@RequestBody Note noteDetails){
+    /*update a note by note id*/
+    @PutMapping("/update-note/{id}")
+    public ResponseEntity<Note> updateNote(@PathVariable(value="id") Integer noteId,@RequestBody Note noteDetails){
 
-        Note nte = noteDAO.findOne(stdid);
+        Note nte = noteDAO.findOne(noteId);
 
         if(nte==null) {
             return ResponseEntity.notFound().build();
@@ -61,11 +61,11 @@ public class NoteController {
         return ResponseEntity.ok().body(updateNote);
     }
 
-    /*Delete a student*/
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Note> deleteNote(@PathVariable(value="id") Integer nteId){
+    /*Delete a note*/
+    @DeleteMapping("/delete-note/{id}")
+    public ResponseEntity<Note> deleteNote(@PathVariable(value="id") Integer noteId){
 
-        Note nte = noteDAO.findOne(nteId);
+        Note nte = noteDAO.findOne(noteId);
         if(nte==null) {
             return ResponseEntity.notFound().build();
         }

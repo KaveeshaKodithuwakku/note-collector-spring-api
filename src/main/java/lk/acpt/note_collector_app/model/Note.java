@@ -1,12 +1,17 @@
 package lk.acpt.note_collector_app.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 @Entity
 public class Note {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.TABLE,generator = "id")
+    @Column(name = "noteId")
     private Integer noteId;
     private String title;
     private String description;
@@ -14,13 +19,6 @@ public class Note {
     private String image;
 
 
-    public Integer getNoteId() {
-        return noteId;
-    }
-
-    public void setNoteId(Integer noteId) {
-        this.noteId = noteId;
-    }
 
     public String getTitle() {
         return title;
@@ -52,5 +50,14 @@ public class Note {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+
+    public Integer getNoteId() {
+        return noteId;
+    }
+
+    public void setNoteId(Integer noteId) {
+        this.noteId = noteId;
     }
 }

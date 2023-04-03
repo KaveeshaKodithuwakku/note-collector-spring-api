@@ -33,8 +33,8 @@ public class NoteDAO {
 
     /*delete a note*/
 
-    public void delete(Note std) {
-        noteRepo.delete(std);
+    public void delete(Note note) {
+        noteRepo.delete(note);
     }
 
 }

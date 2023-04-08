@@ -24,6 +24,14 @@ public class NoteDAO {
         return noteRepo.findAll();
     }
 
+    /* search special notes*/
+    public List<Note> listAll(String keyword) {
+        if (keyword != null) {
+            return noteRepo.search(keyword);
+        }
+        return noteRepo.findAll();
+    }
+
 
     /*get a note by id*/
     public Note findOne(Integer id) {

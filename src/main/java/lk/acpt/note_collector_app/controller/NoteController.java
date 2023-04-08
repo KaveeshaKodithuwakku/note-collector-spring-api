@@ -3,6 +3,7 @@ package lk.acpt.note_collector_app.controller;
 import lk.acpt.note_collector_app.dao.NoteDAO;
 import lk.acpt.note_collector_app.model.Note;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,20 @@ public class NoteController {
         return noteDAO.findAll();
     }
 
+    /*get notes by keyword*/
+    @GetMapping("/search-note")
+    public ResponseEntity<List<Note>> searchNotes(@RequestParam(value ="query",required = false) String keyword){
+
+        List<Note> nte = noteDAO.listAll(keyword);
+
+        if(nte==null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(nte);
+
+    }
+
+
     /*get notes by noteId*/
     @GetMapping("/get-note/{id}")
     public ResponseEntity<Note> getNoteById(@PathVariable(value="id") Integer nteId){
@@ -41,6 +56,7 @@ public class NoteController {
         return ResponseEntity.ok().body(nte);
 
     }
+
 
     /*update a note by note id*/
     @PutMapping("/update-note/{id}")

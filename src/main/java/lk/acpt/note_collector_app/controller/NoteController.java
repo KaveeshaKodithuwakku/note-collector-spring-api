@@ -72,6 +72,7 @@ public class NoteController {
         nte.setDescription(noteDetails.getDescription());
         nte.setDateTime(noteDetails.getDateTime());
         nte.setImage(noteDetails.getImage());
+        nte.setFavorite(noteDetails.getFavorite());
 
         Note updateNote = noteDAO.save(nte);
         return ResponseEntity.ok().body(updateNote);
@@ -86,6 +87,21 @@ public class NoteController {
             return ResponseEntity.notFound().build();
         }
         noteDAO.delete(nte);
+
+        return ResponseEntity.ok().build();
+
+
+    }
+
+    /*Update a note*/
+    @PutMapping("/update-note-favorite/{id}/{isFavStatus}")
+    public ResponseEntity<Note> updateIsFavorite(@PathVariable(value="id") Integer noteId,@PathVariable(value="isFavStatus") boolean isFavorite){
+
+        Note nte = noteDAO.findOne(noteId);
+        if(nte==null) {
+            return ResponseEntity.notFound().build();
+        }
+        noteDAO.updateIsFavorite(nte,isFavorite);
 
         return ResponseEntity.ok().build();
 

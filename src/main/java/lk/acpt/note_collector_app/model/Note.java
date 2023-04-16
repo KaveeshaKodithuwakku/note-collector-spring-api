@@ -17,6 +17,9 @@ public class Note {
     private String description;
     private String dateTime;
     private String image;
+    private Boolean isFavorite;
+
+
 
 
 
@@ -59,5 +62,14 @@ public class Note {
 
     public void setNoteId(Integer noteId) {
         this.noteId = noteId;
+    }
+
+
+    public Boolean getFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(Boolean favorite) {
+        isFavorite = favorite;
     }
 }

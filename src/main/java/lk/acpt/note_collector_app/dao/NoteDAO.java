@@ -45,4 +45,10 @@ public class NoteDAO {
         noteRepo.delete(note);
     }
 
+    /*update only isFavorite a note  */
+
+    public void updateIsFavorite(Note note,boolean status) {
+        noteRepo.updateFavoriteStatus(note.getNoteId(),status);
+    }
+
 }

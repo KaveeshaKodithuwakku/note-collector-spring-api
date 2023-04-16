@@ -51,4 +51,9 @@ public class NoteDAO {
         noteRepo.updateFavoriteStatus(note.getNoteId(),status);
     }
 
+    /* get favorite all notes*/
+    public List<Note> getFavoriteNotes(){
+        return noteRepo.getFavoriteNotes();
+    }
+
 }

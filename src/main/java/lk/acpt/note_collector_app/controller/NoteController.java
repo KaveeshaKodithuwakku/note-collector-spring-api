@@ -104,8 +104,12 @@ public class NoteController {
         noteDAO.updateIsFavorite(nte,isFavorite);
 
         return ResponseEntity.ok().build();
+    }
 
-
+    /*get all  favorite notes*/
+    @GetMapping("/get-all-favorites")
+    public List<Note> getAllFavoriteNotes(){
+        return noteDAO.getFavoriteNotes();
     }
 
 

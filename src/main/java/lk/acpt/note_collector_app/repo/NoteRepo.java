@@ -25,4 +25,11 @@ public interface NoteRepo extends JpaRepository<Note,Integer> {
     @Transactional
     @Query("UPDATE Note c SET c.isFavorite = :favStatus WHERE c.noteId = :noteId")
     int updateFavoriteStatus( int noteId,  boolean favStatus);
+
+
+    //select only favorite notes -------
+    @Query(value = "SELECT * FROM Note WHERE is_favorite = 1",nativeQuery = true)
+    List<Note> getFavoriteNotes();
+
+
 }

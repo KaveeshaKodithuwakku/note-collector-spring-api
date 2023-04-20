@@ -28,8 +28,11 @@ public interface NoteRepo extends JpaRepository<Note,Integer> {
 
 
     //select only favorite notes -------
-    @Query(value = "SELECT * FROM Note WHERE is_favorite = 1",nativeQuery = true)
-    List<Note> getFavoriteNotes();
+    @Query(value = "SELECT * FROM Note WHERE is_favorite = 1 AND  user_Id = :uId",nativeQuery = true)
+    List<Note> getFavoriteNotes(String uId);
 
+    //get login user data
+    @Query(value = "SELECT * FROM Note WHERE user_Id = :uId",nativeQuery = true)
+    List<Note> getNotesByUserId(String uId);
 
 }

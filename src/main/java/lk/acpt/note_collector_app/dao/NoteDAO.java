@@ -52,8 +52,15 @@ public class NoteDAO {
     }
 
     /* get favorite all notes*/
-    public List<Note> getFavoriteNotes(){
-        return noteRepo.getFavoriteNotes();
+    public List<Note> getFavoriteNotes(String uId){
+        return noteRepo.getFavoriteNotes(uId);
     }
+
+    /* get notes by userid*/
+    public List<Note> getNotesByUserId(String uId){
+        return noteRepo.getNotesByUserId(uId);
+    }
+
+
 
 }

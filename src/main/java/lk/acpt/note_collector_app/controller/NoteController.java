@@ -17,7 +17,8 @@ import java.util.List;
 @RequestMapping("/note")
 public class NoteController {
 
-    private final String FOLDER_PATH= "E:\\Kaveesha\\Afsd\\Interview Projects\\SpringAPI\\2023-03-29\\note_collector_app\\src\\main\\resources\\static\\images";
+    private final String FOLDER_PATH= "/opt/apache-tomcat-8.5.88/webapps/app-0.0.1-SNAPSHOT/WEB-INF/classes/static/images";
+   // private final String FOLDER_PATH= "E:\\Kaveesha\\Afsd\\Interview Projects\\SpringAPI\\2023-03-29\\note_collector_app\\src\\main\\resources\\static\\images";
     @Autowired
     NoteDAO noteDAO;
 

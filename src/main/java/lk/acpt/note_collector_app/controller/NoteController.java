@@ -4,12 +4,15 @@ import lk.acpt.note_collector_app.dao.NoteDAO;
 import lk.acpt.note_collector_app.model.Note;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 
 @RestController
@@ -17,8 +20,8 @@ import java.util.List;
 @RequestMapping("/note")
 public class NoteController {
 
-  //  private final String FOLDER_PATH= "/opt/apache-tomcat-8.5.88/webapps/app-0.0.1-SNAPSHOT/WEB-INF/classes/static/images";
-    private final String FOLDER_PATH= "E:\\Kaveesha\\Afsd\\Interview Projects\\SpringAPI\\2023-03-29\\note_collector_app\\src\\main\\resources\\static\\images";
+    private final String FOLDER_PATH= "F:\\Afsd\\Interview Projects\\File Uploads\\Images\\";
+
     @Autowired
     NoteDAO noteDAO;
 
@@ -27,10 +30,17 @@ public class NoteController {
     public Note saveNote(@RequestParam(value = "userId")String userId,@RequestParam(value = "title")String title, @RequestParam(value = "description") String description, @RequestParam(value = "dateTime") String dateTime, @RequestParam(value = "favorite") Boolean favorite,@RequestParam(value = "image") MultipartFile file) throws IOException {
         String filePath = FOLDER_PATH+file.getOriginalFilename();
 
-        Note save = noteDAO.save(new Note(userId,title, description, dateTime, favorite,"/images/"+file.getOriginalFilename()));
+        Note save = noteDAO.save(new Note(userId,title, description, dateTime, favorite,file.getOriginalFilename()));
+
         file.transferTo(new File(filePath));
 
         return save;
+    }
+
+    @GetMapping("/download/{fileName}")
+    public ResponseEntity<byte[]> downloadImage(@PathVariable String fileName) throws IOException {
+        byte[] image = Files.readAllBytes(new File(FOLDER_PATH+fileName).toPath());
+        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png")).body(image);
     }
 
     /*save notes*/
@@ -84,7 +94,14 @@ public class NoteController {
 
         String filePath = FOLDER_PATH+file.getOriginalFilename();
 
-        Note updateNote = noteDAO.save(new Note(userId,title, description, dateTime, favorite,"/images/"+file.getOriginalFilename()));
+
+        nte.setTitle(title);
+        nte.setDescription(description);
+        nte.setDateTime(dateTime);
+        nte.setFile_path(file.getOriginalFilename());
+        nte.setFavorite(favorite);
+
+        Note updateNote = noteDAO.save(nte);
         file.transferTo(new File(filePath));
         return ResponseEntity.ok().body(updateNote);
     }
@@ -102,8 +119,8 @@ public class NoteController {
         nte.setTitle(noteDetails.getTitle());
         nte.setDescription(noteDetails.getDescription());
         nte.setDateTime(noteDetails.getDateTime());
-        nte.setFile_path(noteDetails.getFile_path());
-        nte.setFavorite(noteDetails.getFavorite());
+      //  nte.setFile_path(noteDetails.getFile_path());
+      //  nte.setFavorite(noteDetails.getFavorite());
 
         Note updateNote = noteDAO.save(nte);
         return ResponseEntity.ok().body(updateNote);

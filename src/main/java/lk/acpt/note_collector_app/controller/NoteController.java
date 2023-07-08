@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/note")
+@RequestMapping("/api/v1/note")
 public class NoteController {
 
     private final String FOLDER_PATH= "F:\\Afsd\\Interview Projects\\File Uploads\\Images\\";
